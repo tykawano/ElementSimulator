@@ -1,3 +1,5 @@
+package Main;
+
 import javax.swing.*;
 
 public class SimFrame extends JFrame {
