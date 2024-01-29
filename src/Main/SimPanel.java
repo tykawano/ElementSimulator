@@ -32,8 +32,15 @@ public class SimPanel extends JPanel implements Runnable{
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        super.paintComponents(g2);
+        super.paintComponent(g2);
         grid.paint(g2);
+
+        for (int i = 0; i < heightPixel; i+=sizePixel) {
+            for (int j = 0; j < widthPixel; j+=sizePixel) {
+                g2.drawRect(j,i,sizePixel,sizePixel);
+            }
+        }
+
         g2.dispose();
     }
 
