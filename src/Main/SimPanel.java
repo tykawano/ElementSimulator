@@ -12,7 +12,7 @@ public class SimPanel extends JPanel implements Runnable{
     public final int colNum = 25;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
-    public final int fps = 60;
+    public final int fps = 100;
     MouseInputs mouse = new MouseInputs();
     Grid grid;
     Thread simThread;

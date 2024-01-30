@@ -13,7 +13,6 @@ public class Grid {
     public int[][] grid;
     public MouseInputs mouse;
     public int timer = 0;
-    public boolean testing = true;
     public Grid(SimPanel panel, int rowNum, int colNum, MouseInputs mouse){
         this.panel = panel;
         grid = new int[colNum][rowNum];
@@ -32,10 +31,6 @@ public class Grid {
         if(mouse.isDragging()){
             setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),1);
         }
-//        if(testing){
-//            setGrid(49,0,1);
-//            testing = false;
-//        }
 
         if(timer >= 5){
             initiateElementRules();
@@ -48,7 +43,7 @@ public class Grid {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if(grid[i][j] == 1){
-                    elementTypes[1].action(grid,nextGrid,j,i);
+                   elementTypes[1].action(grid,nextGrid,j,i);
                 }
             }
         }
