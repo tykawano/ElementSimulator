@@ -1,5 +1,4 @@
 package Elements;
-
 import Main.SimPanel;
 
 public abstract class Solid extends Element {

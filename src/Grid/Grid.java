@@ -2,6 +2,7 @@ package Grid;
 
 import Elements.Element;
 import Elements.Sand;
+import Inputs.MouseInputs;
 import Main.SimPanel;
 
 import java.awt.*;
@@ -10,9 +11,13 @@ public class Grid {
     public SimPanel panel;
     public Element[] elementTypes;
     public int[][] grid;
-    public Grid(SimPanel panel,int rowNum,int colNum){
+    public MouseInputs mouse;
+    public int timer = 0;
+    public boolean testing = true;
+    public Grid(SimPanel panel, int rowNum, int colNum, MouseInputs mouse){
         this.panel = panel;
         grid = new int[colNum][rowNum];
+        this.mouse = mouse;
         this.loadGrid();
     }
     public void loadGrid(){
@@ -23,15 +28,32 @@ public class Grid {
     public void setGrid(int rowNum, int colNum, int elementType) {
         this.grid[colNum][rowNum] = elementType;
     }
-
-    public Element[] getElementTypes() {
-        return elementTypes;
-    }
     public void update(){
-        setGrid(25,1,1);
+        if(mouse.isDragging()){
+            setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),1);
+        }
+//        if(testing){
+//            setGrid(49,0,1);
+//            testing = false;
+//        }
+
+        if(timer >= 5){
+            initiateElementRules();
+            timer = 0;
+        }
+        timer++;
     }
-
-
+    public void initiateElementRules(){
+        int[][] nextGrid = new int[panel.colNum][panel.rowNum];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] == 1){
+                    elementTypes[1].action(grid,nextGrid,j,i);
+                }
+            }
+        }
+        this.grid = nextGrid;
+    }
     public void paint(Graphics2D g2){
         Element currElement;
         for (int i = 0; i < grid.length; i++) {
@@ -45,5 +67,11 @@ public class Grid {
         }
     }
 
+    public int setColIndex(int y){
+        return (y/panel.sizePixel);
+    }
+    public int setRowIndex(int x){
+        return (x/panel.sizePixel);
+    }
 
 }

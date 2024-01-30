@@ -6,11 +6,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
+    public boolean isDragging = false;
+    public int mouseX = 0, mouseY = 0;
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Point point = e.getPoint();
-        System.out.println(point);
+
     }
 
     @Override
@@ -20,7 +21,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        isDragging = false;
+        mouseX = 0;
+        mouseY = 0;
     }
 
     @Override
@@ -35,11 +38,25 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        mouseX = e.getX();
+        mouseY = e.getY();
+        isDragging = true;
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+
+    public boolean isDragging() {
+        return isDragging;
     }
 }

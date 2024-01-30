@@ -7,18 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
-    public final int sizePixel = 25;
+    public final int sizePixel = 20;
     public final int rowNum = 50;
     public final int colNum = 25;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
-    public final int fps = 100;
+    public final int fps = 60;
     MouseInputs mouse = new MouseInputs();
     Grid grid;
     Thread simThread;
     public SimPanel(){
         setDefault();
-        grid = new Grid(this,rowNum,colNum);
+        grid = new Grid(this,rowNum,colNum,mouse);
         this.startThread();
     }
     public void startThread(){
