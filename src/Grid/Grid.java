@@ -28,21 +28,24 @@ public class Grid {
         this.grid[colNum][rowNum] = elementType;
     }
     public void update(){
-        if(mouse.isDragging()){
-            setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),1);
+        if(panel.getUiPopUpState() == 0){
+            if(mouse.isDragging()){
+                setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),1);
+            }
+
+            if(timer >= 5){
+                initiateElementRules();
+                timer = 0;
+            }
+            timer++;
         }
 
-        if(timer >= 5){
-            initiateElementRules();
-            timer = 0;
-        }
-        timer++;
     }
     public void initiateElementRules(){
         int[][] nextGrid = new int[panel.colNum][panel.rowNum];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if(grid[i][j] == 1){
+                if(grid[i][j] == elementTypes[1].getElementType()){
                    elementTypes[1].action(grid,nextGrid,j,i);
                 }
             }

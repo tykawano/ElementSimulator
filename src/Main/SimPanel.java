@@ -12,12 +12,18 @@ public class SimPanel extends JPanel implements Runnable{
     public final int colNum = 25;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
+    public final int UISIZEWIDTH = widthPixel - (2*(4*sizePixel));
+    public final int UISIZEHEIGHT = heightPixel - (2*(3*sizePixel));
+    public final int xcord = (sizePixel*4+UISIZEWIDTH) - (sizePixel*4 + (sizePixel/4));
+    public final int ycord = (sizePixel*4) + (sizePixel/4);
     public final int fps = 100;
+    public int UiPopUpState = 0;
     MouseInputs mouse = new MouseInputs();
     Grid grid;
     Thread simThread;
     public SimPanel(){
         setDefault();
+
         grid = new Grid(this,rowNum,colNum,mouse);
         this.startThread();
     }
@@ -27,13 +33,27 @@ public class SimPanel extends JPanel implements Runnable{
     }
     public void update(){
         grid.update();
+
+        int buttonMinX = widthPixel - (sizePixel*6);
+        int buttonMaxX = buttonMinX + sizePixel * 5;
+        int buttonMinY = sizePixel;
+        int buttonMaxY = buttonMinY + sizePixel + (sizePixel*2);
+        if(UiPopUpState == 0 && mouse.isButtonPressed() &&
+                (mouse.mouseXUI >= buttonMinX && mouse.mouseXUI <= buttonMaxX)
+                && (mouse.mouseYUI >= buttonMinY && mouse.mouseYUI <= buttonMaxY)){
+            UiPopUpState = 1;
+        }
+        else if (UiPopUpState == 1 && !mouse.isButtonPressed() &&
+                (mouse.mouseXUI >= buttonMinX && mouse.mouseXUI <= buttonMaxX)
+                && (mouse.mouseYUI >= buttonMinY && mouse.mouseYUI <= buttonMaxY)) {
+            UiPopUpState = 0;
+        }
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g2);
-        grid.paint(g2);
 
         for (int i = 0; i < heightPixel; i+=sizePixel) {
             for (int j = 0; j < widthPixel; j+=sizePixel) {
@@ -41,7 +61,39 @@ public class SimPanel extends JPanel implements Runnable{
             }
         }
 
+        paintButtonUI(g2);
+        grid.paint(g2);
+
+        if(UiPopUpState == 1){
+            paintOptionsScreen(g2);
+        }
+
         g2.dispose();
+    }
+    public void paintButtonUI(Graphics2D g2){
+        // Button display
+        g2.setColor(new Color(255,164,32,180));
+        g2.fillRoundRect(widthPixel - (sizePixel*6),sizePixel,sizePixel*5,sizePixel*2,35,35);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRoundRect(widthPixel - (sizePixel*6),sizePixel,sizePixel*5,sizePixel*2,25,25);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        g2.drawString("OPTIONS",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
+    }
+
+    public void paintOptionsScreen(Graphics2D g2){
+        // pop up background
+        g2.setColor(new Color(100,107,99));
+        g2.fillRect(sizePixel*4,sizePixel*4,UISIZEWIDTH,UISIZEHEIGHT);
+
+        // pop up #1 for solid's options
+        g2.setColor(new Color(255,255,255));
+        g2.fillRoundRect(xcord,ycord,sizePixel*4,sizePixel*2,35,35);
+        g2.setColor(new Color(0,0,0));
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(xcord,ycord,sizePixel*4,sizePixel*2,25,25);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        g2.drawString("Solids",xcord + sizePixel,ycord + (sizePixel + (sizePixel/4)));
     }
 
     @Override
@@ -85,5 +137,9 @@ public class SimPanel extends JPanel implements Runnable{
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
         setFocusable(true);
+    }
+
+    public int getUiPopUpState() {
+        return UiPopUpState;
     }
 }
