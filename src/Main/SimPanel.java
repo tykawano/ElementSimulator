@@ -8,14 +8,14 @@ import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
     public final int sizePixel = 20;
-    public final int rowNum = 50;
-    public final int colNum = 25;
+    public final int rowNum = 70;
+    public final int colNum = 35;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
     public final int UISIZEWIDTH = widthPixel - (2*(4*sizePixel));
     public final int UISIZEHEIGHT = heightPixel - (2*(3*sizePixel));
     public final int xcord = (sizePixel*4+UISIZEWIDTH) - (sizePixel*4 + (sizePixel/4));
-    public final int ycord = (sizePixel*4) + (sizePixel/4);
+    public final int ycord = (sizePixel*4) + (sizePixel*2);
     public final int fps = 100;
     public int UiPopUpState = 0;
     public static final int SOLIDSTATEUI = 0;
@@ -99,35 +99,36 @@ public class SimPanel extends JPanel implements Runnable{
         // pop up background
         g2.setColor(new Color(100,107,99));
         g2.fillRect(sizePixel*4,sizePixel*4,UISIZEWIDTH,UISIZEHEIGHT);
+        g2.setColor(Color.WHITE);
+        g2.drawLine(xcord - (sizePixel/4),ycord - (sizePixel*2) + (sizePixel/6),xcord - (sizePixel/4),(sizePixel*4 + UISIZEHEIGHT - (sizePixel/5)));
 
         // pop up #1 for solid's options
-        g2.setColor(new Color(255,255,255));
-        g2.fillRoundRect(xcord,ycord,sizePixel*4,sizePixel*2,35,35);
-        g2.setColor(new Color(0,0,0));
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(xcord,ycord,sizePixel*4,sizePixel*2,25,25);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        createButtons(g2, ycord);
         g2.drawString("SOLIDS",xcord + sizePixel,ycord + (sizePixel + (sizePixel/4)));
 
         // pop up #2 for liquid Option
-        int buttonCordY = ycord +(sizePixel*2) + (sizePixel/4);
-        g2.setColor(new Color(255,255,255));
-        g2.fillRoundRect(xcord,buttonCordY,sizePixel*4,sizePixel*2,35,35);
-        g2.setColor(new Color(0,0,0));
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(xcord,buttonCordY,sizePixel*4,sizePixel*2,25,25);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        int buttonCordY = ycord +(sizePixel*2) + (sizePixel*2);
+        createButtons(g2, buttonCordY);
         g2.drawString("LIQUIDS",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
 
         // pop up #3 for gases Option
-        buttonCordY += (sizePixel*2) + (sizePixel/4);
+        buttonCordY += (sizePixel*2) + (sizePixel*2);
+        createButtons(g2, buttonCordY);
+        g2.drawString("GASES",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
+
+        // pop up #4 for plasma Option
+        buttonCordY += (sizePixel*2) + (sizePixel*2);
+        createButtons(g2,buttonCordY);
+        g2.drawString("Plasma",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
+    }
+
+    private void createButtons(Graphics2D g2, int ycord) {
         g2.setColor(new Color(255,255,255));
-        g2.fillRoundRect(xcord,buttonCordY,sizePixel*4,sizePixel*2,35,35);
+        g2.fillRoundRect(xcord, ycord,sizePixel*4,sizePixel*2,35,35);
         g2.setColor(new Color(0,0,0));
         g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(xcord,buttonCordY,sizePixel*4,sizePixel*2,25,25);
+        g2.drawRoundRect(xcord, ycord,sizePixel*4,sizePixel*2,25,25);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD));
-        g2.drawString("GASES",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
     }
 
     @Override
