@@ -13,12 +13,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(!buttonPressed){
-            buttonPressed = true;
-        }
-        else {
-            buttonPressed = false;
-        }
+        buttonPressed = !buttonPressed;
         mouseXUI = e.getX();
         mouseYUI = e.getY();
     }
