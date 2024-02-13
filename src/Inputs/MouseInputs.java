@@ -13,18 +13,19 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        buttonPressed = !buttonPressed;
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        buttonPressed = true;
         mouseXUI = e.getX();
         mouseYUI = e.getY();
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
+        buttonPressed = false;
         isDragging = false;
         mouseX = 0;
         mouseY = 0;
@@ -68,4 +69,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         return buttonPressed;
     }
 
+    public void setButtonPressed(boolean buttonPressed) {
+        this.buttonPressed = buttonPressed;
+    }
 }
