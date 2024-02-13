@@ -7,9 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
-    public final int sizePixel = 20;
-    public final int rowNum = 50;
-    public final int colNum = 35;
+    public final int sizePixel = 15;
+    public final int rowNum = 80;
+    public final int colNum = 45;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
     public final int UISIZEWIDTH = widthPixel - (2*(4*sizePixel));
@@ -43,11 +43,21 @@ public class SimPanel extends JPanel implements Runnable{
         grid.update();
 
 
+        int clearButtonMinX = widthPixel - (sizePixel*14);
+        int clearButtonMaxX = clearButtonMinX + sizePixel * 5;
+
         int buttonMinX = widthPixel - (sizePixel*6);
         int buttonMaxX = buttonMinX + sizePixel * 5;
         int buttonMinY = sizePixel;
         int buttonMaxY = buttonMinY + sizePixel + (sizePixel*2);
-        if(count >= 10){
+        if(count >= 7){
+            // clear button pressed check
+            if(UiPopUpState == 0 && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= clearButtonMinX && mouse.mouseXUI <= clearButtonMaxX)
+                    && (mouse.mouseYUI >= buttonMinY && mouse.mouseYUI <= buttonMaxY)){
+                grid.clearItems(colNum,rowNum);
+            }
+
             // update options button to see if clicked
             if(UiPopUpState == 0 && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= buttonMinX && mouse.mouseXUI <= buttonMaxX)
@@ -65,22 +75,62 @@ public class SimPanel extends JPanel implements Runnable{
             int solidButtonMaxX = solidButtonMinX + sizePixel*4;
             int solidButtonMinY = 6*sizePixel;
             int solidButtonMaxY = solidButtonMinY + sizePixel*2;
+
+            int liquidButtonMinY = solidButtonMinY + sizePixel*4;
+            int liquidButtonMaxY = liquidButtonMinY + sizePixel*2;
+
+            int gasButtonMinY = liquidButtonMinY + sizePixel*4;
+            int gasButtonMaxY = gasButtonMinY + sizePixel*2;
+
+            int plasmaButtonMinY = gasButtonMinY + sizePixel*4;
+            int plasmaButtonMaxY = plasmaButtonMinY + sizePixel*2;
+
             if(UiPopUpState == 1 && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= solidButtonMinX && mouse.mouseXUI <= solidButtonMaxX)
                     && (mouse.mouseYUI >= solidButtonMinY && mouse.mouseYUI <= solidButtonMaxY)){
                 System.out.println("solid button");
                 buttonState = SOLIDSTATEUI;
             }
+            else if (UiPopUpState == 1 && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= solidButtonMinX && mouse.mouseXUI <= solidButtonMaxX)
+                    && (mouse.mouseYUI >= liquidButtonMinY && mouse.mouseYUI <= liquidButtonMaxY)) {
+                System.out.println("liquid button");
+                buttonState = LIQUIDSTATEUI;
+            }
+            else if (UiPopUpState == 1 && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= solidButtonMinX && mouse.mouseXUI <= solidButtonMaxX)
+                    && (mouse.mouseYUI >= gasButtonMinY && mouse.mouseYUI <= gasButtonMaxY)) {
+                System.out.println("gas button");
+                buttonState = GASSTATEUI;
+            }
+            else if (UiPopUpState == 1 && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= solidButtonMinX && mouse.mouseXUI <= solidButtonMaxX)
+                    && (mouse.mouseYUI >= plasmaButtonMinY && mouse.mouseYUI <= plasmaButtonMaxY)) {
+                System.out.println("plasma button");
+                buttonState = PLAMSMASTATEUI;
+            }
+
+
 
             // update to see if sand UI button is pressed
             int sandButtonMinX = sizePixel*5;
             int sandButtonMaxX = sandButtonMinX + sizePixel*4;
             int sandButtonMinY = 6*sizePixel;
             int sandButtonMaxY = sandButtonMinY + sizePixel*2;
+
+            int woodButtonMinX = sizePixel*10;
+            int woodButtonMaxX = woodButtonMinX + sizePixel*4;
+
             if(buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= sandButtonMinX && mouse.mouseXUI <= sandButtonMaxX)
                     && (mouse.mouseYUI >= sandButtonMinY && mouse.mouseYUI <= sandButtonMaxY)){
                 grid.setCurrElementType(1);
+                System.out.println(grid.currElementType);
+            }
+            else if (buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= woodButtonMinX && mouse.mouseXUI <= woodButtonMaxX)
+                    && (mouse.mouseYUI >= sandButtonMinY && mouse.mouseYUI <= sandButtonMaxY)) {
+                grid.setCurrElementType(2);
                 System.out.println(grid.currElementType);
             }
             count = 0;
@@ -106,7 +156,19 @@ public class SimPanel extends JPanel implements Runnable{
 
         if(UiPopUpState == 1){
             paintOptionsScreen(g2);
-            paintSolidsButtons(g2);
+            if(buttonState == SOLIDSTATEUI){
+                paintSolidsButtons(g2);
+            }
+            else if(buttonState == LIQUIDSTATEUI){
+
+            }
+            else if (buttonState == GASSTATEUI) {
+
+            }
+            else if(buttonState == PLAMSMASTATEUI){
+
+            }
+
         }
 
         g2.dispose();
@@ -115,6 +177,9 @@ public class SimPanel extends JPanel implements Runnable{
     public void paintSolidsButtons(Graphics2D g2){
         createButtons(g2,ycord,5*sizePixel,new Color(194,178,128));
         g2.drawString("SAND",6*sizePixel,ycord + sizePixel + (sizePixel/4));
+
+        createButtons(g2,ycord,10*sizePixel,new Color(150, 111, 51));
+        g2.drawString("WOOD",11*sizePixel,ycord + sizePixel + (sizePixel/4));
     }
     public void paintButtonUI(Graphics2D g2){
         // Button display
@@ -131,6 +196,14 @@ public class SimPanel extends JPanel implements Runnable{
         else{
             g2.drawString("CLOSE",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
         }
+
+        g2.setColor(new Color(235,106,14,180));
+        g2.fillRoundRect(widthPixel - (sizePixel*14),sizePixel,sizePixel*5,sizePixel*2,35,35);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRoundRect(widthPixel - (sizePixel*14),sizePixel,sizePixel*5,sizePixel*2,25,25);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        g2.drawString("Clear",widthPixel - (sizePixel*13) + 3,sizePixel*2 + 3);
     }
 
     public void paintOptionsScreen(Graphics2D g2){

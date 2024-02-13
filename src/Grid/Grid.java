@@ -2,6 +2,7 @@ package Grid;
 
 import Elements.Element;
 import Elements.Sand;
+import Elements.Wood;
 import Inputs.MouseInputs;
 import Main.SimPanel;
 
@@ -23,6 +24,7 @@ public class Grid {
     public void loadGrid(){
         elementTypes = new Element[10];
         elementTypes[1] = new Sand(panel,1);
+        elementTypes[2] = new Wood(panel,2);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
@@ -49,6 +51,9 @@ public class Grid {
                 if(grid[i][j] == elementTypes[1].getElementType()){
                    elementTypes[1].action(grid,nextGrid,j,i);
                 }
+                else if (grid[i][j] == elementTypes[2].getElementType()) {
+                    elementTypes[2].action(grid,nextGrid,j,i);
+                }
             }
         }
         this.grid = nextGrid;
@@ -59,6 +64,11 @@ public class Grid {
             for (int j = 0; j < grid[i].length; j++) {
                 if(grid[i][j] == elementTypes[1].getElementType()){
                     currElement = elementTypes[1];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if ((grid[i][j] == elementTypes[2].getElementType())) {
+                    currElement = elementTypes[2];
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }
@@ -75,5 +85,8 @@ public class Grid {
 
     public void setCurrElementType(int currElementType) {
         this.currElementType = currElementType;
+    }
+    public void clearItems(int col, int row){
+        grid = new int[col][row];
     }
 }
