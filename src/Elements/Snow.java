@@ -30,18 +30,22 @@ public class Snow extends SolidMovable{
                 dir = 1;
             }
 
-            // Check if the cell below is empty
-            if (isCellEmpty(grid, indexX + dir, indexY + 1)) {
-                nextGrid[indexY + 1][indexX + dir] = 4; // Move diagonally
-            }
-            else if (isCellEmpty(grid, indexX, indexY + 1)) {
-                nextGrid[indexY + 1][indexX] = 4; // Move straight down
-            }
-            else if (isCellEmpty(grid, indexX - dir, indexY + 1)) {
-                nextGrid[indexY + 1][indexX - dir] = 4; // Move diagonally in the opposite direction
+            // check if the cell bellow is empty
+            if(isCellEmpty(grid, indexX, indexY + 1)){
+                // Check if the cell diagonal right and left is empty
+                if (isCellEmpty(grid, indexX + dir, indexY + 1)) {
+                    nextGrid[indexY + 1][indexX + dir] = 4; // Move diagonally
+                }
+                else if (isCellEmpty(grid, indexX - dir, indexY + 1)) {
+                    nextGrid[indexY + 1][indexX - dir] = 4; // Move diagonally in the opposite direction
+                }
+                // no other options move down
+                else {
+                    nextGrid[indexY + 1][indexX] = 4; // If no space below, solidify
+                }
             }
             else {
-                nextGrid[indexY][indexX] = 4; // If no space below, solidify
+                nextGrid[indexY][indexX] = 4;
             }
         }
 
