@@ -1,9 +1,6 @@
 package Grid;
 
-import Elements.Element;
-import Elements.Sand;
-import Elements.Water;
-import Elements.Wood;
+import Elements.*;
 import Inputs.MouseInputs;
 import Main.SimPanel;
 
@@ -27,18 +24,19 @@ public class Grid {
         elementTypes[1] = new Sand(panel,1);
         elementTypes[2] = new Wood(panel,2);
         elementTypes[3] = new Water(panel,3);
+        elementTypes[4] = new Snow(panel,4);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
         this.grid[colNum][rowNum] = elementType;
-        this.grid[colNum - 1][rowNum] = elementType;
-        this.grid[colNum + 1][rowNum] = elementType;
-        this.grid[colNum][rowNum - 1] = elementType;
-        this.grid[colNum][rowNum + 1] = elementType;
-        this.grid[colNum - 1][rowNum - 1] = elementType;
-        this.grid[colNum - 1][rowNum + 1] = elementType;
-        this.grid[colNum + 1][rowNum - 1] = elementType;
-        this.grid[colNum + 1][rowNum + 1] = elementType;
+//        this.grid[colNum - 1][rowNum] = elementType;
+//        this.grid[colNum + 1][rowNum] = elementType;
+//        this.grid[colNum][rowNum - 1] = elementType;
+//        this.grid[colNum][rowNum + 1] = elementType;
+//        this.grid[colNum - 1][rowNum - 1] = elementType;
+//        this.grid[colNum - 1][rowNum + 1] = elementType;
+//        this.grid[colNum + 1][rowNum - 1] = elementType;
+//        this.grid[colNum + 1][rowNum + 1] = elementType;
     }
     public void update(){
         if(panel.getUiPopUpState() == 0){
@@ -65,7 +63,10 @@ public class Grid {
                     elementTypes[2].action(grid,nextGrid,j,i);
                 }
                 else if (grid[i][j] == elementTypes[3].getElementType()) {
-                    elementTypes[2].action(grid,nextGrid,j,i);
+                    elementTypes[3].action(grid,nextGrid,j,i);
+                }
+                else if(grid[i][j] == elementTypes[4].getElementType()){
+                    elementTypes[4].action(grid,nextGrid,j,i);
                 }
             }
         }
@@ -80,8 +81,18 @@ public class Grid {
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }
-                else if ((grid[i][j] == elementTypes[2].getElementType())) {
+                else if (grid[i][j] == elementTypes[2].getElementType()) {
                     currElement = elementTypes[2];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if (grid[i][j] == elementTypes[3].getElementType()) {
+                    currElement = elementTypes[3];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if(grid[i][j] == elementTypes[4].getElementType()){
+                    currElement = elementTypes[4];
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }

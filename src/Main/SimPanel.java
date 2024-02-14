@@ -121,6 +121,9 @@ public class SimPanel extends JPanel implements Runnable{
             int button2MinX = sizePixel*10;
             int button2MaxX = button2MinX + sizePixel*4;
 
+            int button3MinX = sizePixel*15;
+            int button3MaxX = button3MinX + sizePixel*6;
+
             if(buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
@@ -132,6 +135,13 @@ public class SimPanel extends JPanel implements Runnable{
                     (mouse.mouseXUI >= button2MinX && mouse.mouseXUI <= button2MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
                 grid.setCurrElementType(2);
+                UiPopUpState = 0;
+                System.out.println(grid.currElementType);
+            }
+            else if (buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= button3MinX && mouse.mouseXUI <= button3MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
+                grid.setCurrElementType(4);
                 UiPopUpState = 0;
                 System.out.println(grid.currElementType);
             }
@@ -190,6 +200,9 @@ public class SimPanel extends JPanel implements Runnable{
 
         createButton(g2,ycord,10*sizePixel,new Color(150, 111, 51));
         g2.drawString("WOOD",11*sizePixel,ycord + sizePixel + (sizePixel/4));
+
+        createButton(g2,ycord,15*sizePixel,new Color(255,250,250));
+        g2.drawString("SNOW",16*sizePixel,ycord + sizePixel + (sizePixel/4));
     }
 
     public void paintLiquidsButtons(Graphics2D g2){
