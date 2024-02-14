@@ -2,6 +2,7 @@ package Grid;
 
 import Elements.Element;
 import Elements.Sand;
+import Elements.Water;
 import Elements.Wood;
 import Inputs.MouseInputs;
 import Main.SimPanel;
@@ -25,10 +26,19 @@ public class Grid {
         elementTypes = new Element[10];
         elementTypes[1] = new Sand(panel,1);
         elementTypes[2] = new Wood(panel,2);
+        elementTypes[3] = new Water(panel,3);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
         this.grid[colNum][rowNum] = elementType;
+        this.grid[colNum - 1][rowNum] = elementType;
+        this.grid[colNum + 1][rowNum] = elementType;
+        this.grid[colNum][rowNum - 1] = elementType;
+        this.grid[colNum][rowNum + 1] = elementType;
+        this.grid[colNum - 1][rowNum - 1] = elementType;
+        this.grid[colNum - 1][rowNum + 1] = elementType;
+        this.grid[colNum + 1][rowNum - 1] = elementType;
+        this.grid[colNum + 1][rowNum + 1] = elementType;
     }
     public void update(){
         if(panel.getUiPopUpState() == 0){
@@ -52,6 +62,9 @@ public class Grid {
                    elementTypes[1].action(grid,nextGrid,j,i);
                 }
                 else if (grid[i][j] == elementTypes[2].getElementType()) {
+                    elementTypes[2].action(grid,nextGrid,j,i);
+                }
+                else if (grid[i][j] == elementTypes[3].getElementType()) {
                     elementTypes[2].action(grid,nextGrid,j,i);
                 }
             }

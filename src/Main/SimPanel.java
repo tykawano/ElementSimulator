@@ -7,9 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
-    public final int sizePixel = 15;
-    public final int rowNum = 80;
-    public final int colNum = 45;
+    public final int sizePixel = 10;
+    public final int rowNum = 150;
+    public final int colNum = 60;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
     public final int UISIZEWIDTH = widthPixel - (2*(4*sizePixel));
@@ -113,24 +113,34 @@ public class SimPanel extends JPanel implements Runnable{
 
 
             // update to see if sand UI button is pressed
-            int sandButtonMinX = sizePixel*5;
-            int sandButtonMaxX = sandButtonMinX + sizePixel*4;
-            int sandButtonMinY = 6*sizePixel;
-            int sandButtonMaxY = sandButtonMinY + sizePixel*2;
+            int button1MinX = sizePixel*5;
+            int button1MaxX = button1MinX + sizePixel*4;
+            int button1MinY = 6*sizePixel;
+            int button1MaxY = button1MinY + sizePixel*2;
 
-            int woodButtonMinX = sizePixel*10;
-            int woodButtonMaxX = woodButtonMinX + sizePixel*4;
+            int button2MinX = sizePixel*10;
+            int button2MaxX = button2MinX + sizePixel*4;
 
             if(buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
-                    (mouse.mouseXUI >= sandButtonMinX && mouse.mouseXUI <= sandButtonMaxX)
-                    && (mouse.mouseYUI >= sandButtonMinY && mouse.mouseYUI <= sandButtonMaxY)){
+                    (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
                 grid.setCurrElementType(1);
+                UiPopUpState = 0;
                 System.out.println(grid.currElementType);
             }
             else if (buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
-                    (mouse.mouseXUI >= woodButtonMinX && mouse.mouseXUI <= woodButtonMaxX)
-                    && (mouse.mouseYUI >= sandButtonMinY && mouse.mouseYUI <= sandButtonMaxY)) {
+                    (mouse.mouseXUI >= button2MinX && mouse.mouseXUI <= button2MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
                 grid.setCurrElementType(2);
+                UiPopUpState = 0;
+                System.out.println(grid.currElementType);
+            }
+
+            if(buttonState == LIQUIDSTATEUI && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
+                grid.setCurrElementType(3);
+                UiPopUpState = 0;
                 System.out.println(grid.currElementType);
             }
             count = 0;
@@ -160,7 +170,7 @@ public class SimPanel extends JPanel implements Runnable{
                 paintSolidsButtons(g2);
             }
             else if(buttonState == LIQUIDSTATEUI){
-
+                paintLiquidsButtons(g2);
             }
             else if (buttonState == GASSTATEUI) {
 
@@ -175,11 +185,19 @@ public class SimPanel extends JPanel implements Runnable{
     }
 
     public void paintSolidsButtons(Graphics2D g2){
-        createButtons(g2,ycord,5*sizePixel,new Color(194,178,128));
+        createButton(g2,ycord,5*sizePixel,new Color(194,178,128));
         g2.drawString("SAND",6*sizePixel,ycord + sizePixel + (sizePixel/4));
 
-        createButtons(g2,ycord,10*sizePixel,new Color(150, 111, 51));
+        createButton(g2,ycord,10*sizePixel,new Color(150, 111, 51));
         g2.drawString("WOOD",11*sizePixel,ycord + sizePixel + (sizePixel/4));
+    }
+
+    public void paintLiquidsButtons(Graphics2D g2){
+        createButton(g2,ycord,5*sizePixel,new Color(28,163,236));
+        g2.drawString("WATER",6*sizePixel,ycord + sizePixel + (sizePixel/4));
+
+//        createButton(g2,ycord,10*sizePixel,new Color(150, 111, 51));
+//        g2.drawString("WOOD",11*sizePixel,ycord + sizePixel + (sizePixel/4));
     }
     public void paintButtonUI(Graphics2D g2){
         // Button display
@@ -191,10 +209,10 @@ public class SimPanel extends JPanel implements Runnable{
         g2.setFont(g2.getFont().deriveFont(Font.BOLD));
 
         if(UiPopUpState == 0){
-            g2.drawString("OPTIONS",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
+            g2.drawString("Options",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
         }
         else{
-            g2.drawString("CLOSE",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
+            g2.drawString("Close",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
         }
 
         g2.setColor(new Color(235,106,14,180));
@@ -214,26 +232,26 @@ public class SimPanel extends JPanel implements Runnable{
         g2.drawLine(xcord - (sizePixel/4),ycord - (sizePixel*2) + (sizePixel/6),xcord - (sizePixel/4),(sizePixel*4 + UISIZEHEIGHT - (sizePixel/5)));
 
         // pop up #1 for solid's options
-        createButtons(g2, ycord,xcord,new Color(255,255,255));
-        g2.drawString("SOLIDS",xcord + sizePixel,ycord + (sizePixel + (sizePixel/4)));
+        createButton(g2, ycord,xcord,new Color(255,255,255));
+        g2.drawString("Solids",xcord + sizePixel,ycord + (sizePixel + (sizePixel/4)));
 
         // pop up #2 for liquid Option
         int buttonCordY = ycord +(sizePixel*2) + (sizePixel*2);
-        createButtons(g2, buttonCordY,xcord,new Color(255,255,255));
-        g2.drawString("LIQUIDS",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
+        createButton(g2, buttonCordY,xcord,new Color(255,255,255));
+        g2.drawString("Liquids",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
 
         // pop up #3 for gases Option
         buttonCordY += (sizePixel*2) + (sizePixel*2);
-        createButtons(g2, buttonCordY,xcord,new Color(255,255,255));
-        g2.drawString("GASES",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
+        createButton(g2, buttonCordY,xcord,new Color(255,255,255));
+        g2.drawString("Gases",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
 
         // pop up #4 for plasma Option
         buttonCordY += (sizePixel*2) + (sizePixel*2);
-        createButtons(g2,buttonCordY,xcord,new Color(255,255,255));
+        createButton(g2,buttonCordY,xcord,new Color(255,255,255));
         g2.drawString("Plasma",xcord + sizePixel,buttonCordY + (sizePixel + (sizePixel/4)));
     }
 
-    private void createButtons(Graphics2D g2, int ycord,int xcord, Color color) {
+    private void createButton(Graphics2D g2, int ycord,int xcord, Color color) {
         g2.setColor(color);
         g2.fillRoundRect(xcord, ycord,sizePixel*4,sizePixel*2,35,35);
         g2.setColor(new Color(0,0,0));
