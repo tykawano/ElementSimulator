@@ -4,16 +4,11 @@ import Main.SimPanel;
 
 import java.awt.*;
 
-public class Wood extends Solid{
+public class Wood extends SolidImovable{
 
     public Wood(SimPanel panel, int elementType) {
         super(panel);
         this.setDefaults(elementType);
-    }
-
-    @Override
-    public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
-        nextGrid[indexY][indexX] = 2;
     }
 
     @Override
