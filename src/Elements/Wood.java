@@ -4,7 +4,7 @@ import Main.SimPanel;
 
 import java.awt.*;
 
-public class Wood extends SolidImovable{
+public class Wood extends SolidImmovable {
 
     public Wood(SimPanel panel, int elementType) {
         super(panel);

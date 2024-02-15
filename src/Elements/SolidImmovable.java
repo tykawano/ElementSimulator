@@ -2,9 +2,9 @@ package Elements;
 
 import Main.SimPanel;
 
-public abstract class SolidImovable extends Element{
+public abstract class SolidImmovable extends Element{
 
-    public SolidImovable(SimPanel panel) {
+    public SolidImmovable(SimPanel panel) {
         super(panel);
     }
 

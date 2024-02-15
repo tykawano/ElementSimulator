@@ -29,14 +29,14 @@ public class Grid {
 
     public void setGrid(int rowNum, int colNum, int elementType) {
         this.grid[colNum][rowNum] = elementType;
-//        this.grid[colNum - 1][rowNum] = elementType;
-//        this.grid[colNum + 1][rowNum] = elementType;
-//        this.grid[colNum][rowNum - 1] = elementType;
-//        this.grid[colNum][rowNum + 1] = elementType;
-//        this.grid[colNum - 1][rowNum - 1] = elementType;
-//        this.grid[colNum - 1][rowNum + 1] = elementType;
-//        this.grid[colNum + 1][rowNum - 1] = elementType;
-//        this.grid[colNum + 1][rowNum + 1] = elementType;
+        this.grid[colNum - 1][rowNum] = elementType;
+        this.grid[colNum + 1][rowNum] = elementType;
+        this.grid[colNum][rowNum - 1] = elementType;
+        this.grid[colNum][rowNum + 1] = elementType;
+        this.grid[colNum - 1][rowNum - 1] = elementType;
+        this.grid[colNum - 1][rowNum + 1] = elementType;
+        this.grid[colNum + 1][rowNum - 1] = elementType;
+        this.grid[colNum + 1][rowNum + 1] = elementType;
     }
     public void update(){
         if(panel.getUiPopUpState() == 0){
