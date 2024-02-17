@@ -13,6 +13,7 @@ public class Grid {
     public MouseInputs mouse;
     public int timer = 0;
     public int currElementType = 1;
+    int initial = 0;
     public Grid(SimPanel panel, int rowNum, int colNum, MouseInputs mouse){
         this.panel = panel;
         grid = new int[colNum][rowNum];
@@ -39,10 +40,25 @@ public class Grid {
         this.grid[colNum + 1][rowNum + 1] = elementType;
     }
     public void update(){
+
         if(panel.getUiPopUpState() == 0){
             if(mouse.isDragging()){
                 setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),currElementType);
             }
+//            if(initial == 0){
+//                grid[30][panel.rowNum/2] = 2;
+//                grid[30][panel.rowNum/2 + 1] = 2;
+//                grid[30][panel.rowNum/2 + 2] = 2;
+//                grid[30][panel.rowNum/2 + 4] = 2;
+//                grid[30][panel.rowNum/2 + 5] = 2;
+//
+//                grid[4][panel.rowNum/2 + 2] = 1;
+//                grid[4][panel.rowNum/2 + 4] = 1;
+//
+//                grid[panel.colNum - 1][panel.rowNum/2] = 4;
+//                grid[panel.colNum - 2][panel.rowNum/2] = 4;
+//                initial = 1;
+//            }
 
             if(timer >= 5){
                 initiateElementRules();

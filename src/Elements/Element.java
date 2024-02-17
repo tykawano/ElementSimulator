@@ -21,6 +21,9 @@ public abstract class Element {
         }
         return false;
     }
+    public void switchElements(int[][]grid, int rowFirstElement, int colFirstElement, int rowSecondElement,int[][] nextGrid){
+
+    }
 
     public int getElementType() {
         return elementType;

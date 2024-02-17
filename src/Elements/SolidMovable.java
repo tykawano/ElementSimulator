@@ -16,13 +16,13 @@ public abstract class SolidMovable extends Element {
             if(Math.random() < 0.5){
                 dir *= -1;
             }
-            if(isCellEmpty(grid,indexX,indexY + 1)){
+            if(isCellEmpty(grid,indexX,indexY + 1) && isCellEmpty(nextGrid,indexX,indexY + 1)){
                 nextGrid[indexY + 1][indexX] = 1;
             }
-            else if (isCellEmpty(grid,indexX - dir,indexY + 1)) {
+            else if (isCellEmpty(grid,indexX - dir,indexY + 1) && isCellEmpty(nextGrid,indexX - dir,indexY + 1)) {
                 nextGrid[indexY + 1][indexX - dir] = 1;
             }
-            else if(isCellEmpty(grid,indexX + dir,indexY + 1)){
+            else if(isCellEmpty(grid,indexX + dir,indexY + 1) && isCellEmpty(nextGrid,indexX + dir,indexY + 1)){
                 nextGrid[indexY + 1][indexX + dir] = 1;
             }
             else {
