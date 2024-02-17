@@ -80,6 +80,7 @@ public class Snow extends SolidMovable{
 
     }
 
+    // checker for snow
     public boolean isCellSnow(int[][] grid,int nextRow, int nextCol){
         if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
             return (grid[nextCol][nextRow] == 4);
