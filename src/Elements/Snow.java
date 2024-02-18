@@ -17,10 +17,6 @@ public class Snow extends SolidMovable{
     }
     @Override
     public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
-        if (indexY + 1 >= panel.colNum) {
-            nextGrid[indexY][indexX] = 4;
-        }
-        else {
             boolean moveLeft = (Math.random() < 0.5);
             int dir;
 
@@ -76,7 +72,6 @@ public class Snow extends SolidMovable{
                 }
 
             }
-        }
 
     }
 

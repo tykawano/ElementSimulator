@@ -54,9 +54,13 @@ public class Grid {
 //
 //                grid[4][panel.rowNum/2 + 2] = 1;
 //                grid[4][panel.rowNum/2 + 4] = 1;
-//
-//                grid[panel.colNum - 1][panel.rowNum/2] = 4;
-//                grid[panel.colNum - 2][panel.rowNum/2] = 4;
+//                grid[panel.colNum - 2][2] = 1;
+//                grid[panel.colNum - 2][3] = 1;
+//                grid[panel.colNum - 1][0] = 3;
+//                grid[panel.colNum - 1][1] = 3;
+//                grid[panel.colNum - 1][2] = 3;
+//                grid[panel.colNum - 1][3] = 3;
+//                grid[panel.colNum - 1][4] = 3;
 //                initial = 1;
 //            }
 
@@ -73,7 +77,7 @@ public class Grid {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if(grid[i][j] == elementTypes[1].getElementType()){
-                   elementTypes[1].action(grid,nextGrid,j,i);
+                    elementTypes[1].action(grid,nextGrid,j,i);
                 }
                 else if (grid[i][j] == elementTypes[2].getElementType()) {
                     elementTypes[2].action(grid,nextGrid,j,i);
@@ -84,6 +88,7 @@ public class Grid {
                 else if(grid[i][j] == elementTypes[4].getElementType()){
                     elementTypes[4].action(grid,nextGrid,j,i);
                 }
+
             }
         }
         this.grid = nextGrid;

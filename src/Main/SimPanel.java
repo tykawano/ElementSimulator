@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
     public final int sizePixel = 10;
-    public final int rowNum = 100;
+    public final int rowNum = 120;
     public final int colNum = 60;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
@@ -26,7 +26,7 @@ public class SimPanel extends JPanel implements Runnable{
     public int buttonState = SOLIDSTATEUI;
 
     MouseInputs mouse = new MouseInputs();
-    Grid grid;
+    public Grid grid;
     Thread simThread;
     public SimPanel(){
         setDefault();
