@@ -26,6 +26,7 @@ public class Grid {
         elementTypes[2] = new Wood(panel,2);
         elementTypes[3] = new Water(panel,3);
         elementTypes[4] = new Snow(panel,4);
+        elementTypes[5] = new Smoke(panel,5);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
@@ -88,6 +89,9 @@ public class Grid {
                 else if(grid[i][j] == elementTypes[4].getElementType()){
                     elementTypes[4].action(grid,nextGrid,j,i);
                 }
+                else if(grid[i][j] == elementTypes[5].getElementType()){
+                    elementTypes[5].action(grid,nextGrid,j,i);
+                }
 
             }
         }
@@ -114,6 +118,11 @@ public class Grid {
                 }
                 else if(grid[i][j] == elementTypes[4].getElementType()){
                     currElement = elementTypes[4];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if(grid[i][j] == elementTypes[5].getElementType()){
+                    currElement = elementTypes[5];
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }

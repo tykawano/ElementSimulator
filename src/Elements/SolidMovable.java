@@ -22,21 +22,9 @@ public abstract class SolidMovable extends Element {
                 nextGrid[indexY + 1][indexX + dir] = 1;
             }
             else {
-                if(isWater(grid, indexX, indexY + 1)){
-                    switchElements(grid,indexX,indexY,indexX,indexY + 1,nextGrid);
-                }
-                else {
-                    nextGrid[indexY][indexX] = 1;
-                }
+                nextGrid[indexY][indexX] = 1;
 
             }
 
-    }
-
-    private boolean isWater(int[][] grid ,int nextRow, int nextCol ){
-        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
-            return (grid[nextCol][nextRow] == 3);
-        }
-        return false;
     }
 }
