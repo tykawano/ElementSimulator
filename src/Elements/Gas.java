@@ -2,7 +2,6 @@ package Elements;
 
 import Main.SimPanel;
 
-import java.util.Random;
 
 public abstract class Gas extends Element{
     public Gas(SimPanel panel) {
@@ -26,19 +25,26 @@ public abstract class Gas extends Element{
         }
         else if (isCellEmpty(grid,indexX + dir,indexY - 1) && isCellEmpty(nextGrid,indexX + dir,indexY - 1)) {
             grid[indexY][indexX] = 0;
-            nextGrid[indexY - 1][indexX + dir] = 5;
+            int disappearNum = (int) (Math.random()*100) + 1;
+            if(disappearNum != 100){
+                nextGrid[indexY][indexX + dir] = 5;
+            }
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
             grid[indexY][indexX] = 0;
-            nextGrid[indexY][indexX - dir] = 5;
+            int disappearNum = (int) (Math.random()*100) + 1;
+            if(disappearNum != 100){
+                nextGrid[indexY][indexX - dir] = 5;
+            }
+
         }
         else if(isCellEmpty(grid,indexX + dir,indexY) && isCellEmpty(nextGrid,indexX + dir,indexY)){
             grid[indexY][indexX] = 0;
             nextGrid[indexY][indexX + dir] = 5;
         }
         else {
-            int disappearNum = (int) (Math.random()*6) + 1;
-            if(disappearNum == 1){
+            int disappearNum = (int) (Math.random()*50) + 1;
+            if(disappearNum == 25){
                 nextGrid[indexY][indexX] = 0;
             }
             else {
