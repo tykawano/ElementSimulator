@@ -12,7 +12,7 @@ public class Fire extends Plasma{
 
     @Override
     public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
-
+        
     }
 
     @Override
