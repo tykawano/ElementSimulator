@@ -16,28 +16,28 @@ public abstract class Liquid extends Element{
         }
 
         if(isCellEmpty(grid,indexX,indexY + 1) && isCellEmpty(nextGrid,indexX,indexY + 1)){
-            nextGrid[indexY + 1][indexX] = 3;
+            nextGrid[indexY + 1][indexX] = elementType;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY + 1) && isCellEmpty(nextGrid,indexX - dir,indexY + 1)) {
-            nextGrid[indexY + 1][indexX - dir] = 3;
+            nextGrid[indexY + 1][indexX - dir] = elementType;
         }
         else if (isCellEmpty(grid,indexX + dir,indexY + 1) && isCellEmpty(nextGrid,indexX + dir,indexY + 1)) {
-            nextGrid[indexY + 1][indexX + dir] = 3;
+            nextGrid[indexY + 1][indexX + dir] = elementType;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
             grid[indexY][indexX] = 0;
-            nextGrid[indexY][indexX - dir] = 3;
+            nextGrid[indexY][indexX - dir] = elementType;
         }
         else if(isCellEmpty(grid,indexX + dir,indexY) && isCellEmpty(nextGrid,indexX + dir,indexY)){
             grid[indexY][indexX] = 0;
-            nextGrid[indexY][indexX + dir] = 3;
+            nextGrid[indexY][indexX + dir] = elementType;
         }
         else {
             if(isSand(grid,indexX,indexY - 1)){
                 switchElements(grid,indexX,indexY,indexX,indexY - 1,nextGrid);
             }
             else {
-                nextGrid[indexY][indexX] = 3;
+                nextGrid[indexY][indexX] = elementType;
             }
 
         }
