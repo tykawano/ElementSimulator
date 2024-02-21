@@ -58,15 +58,16 @@ public class Grid {
                     && bottomRightInput && bottomMiddleInput && bottomLeftInput && leftMiddleInput){
                 setGrid(setRowIndex(mouse.getMouseXPlacer()),setColIndex(mouse.getMouseYPlacer()),currElementType);
             }
-            if(initial == 0){
-
-                grid[panel.colNum - 2][6] = 3;
-                grid[panel.colNum - 2][7] = 3;
-                grid[panel.colNum - 2][8] = 3;
-                grid[panel.colNum - 2][9] = 3;
-                grid[panel.colNum - 2][10] = 3;
-                initial = 1;
-            }
+//            if(initial == 0){
+//
+//                grid[panel.colNum - 3][6] = 6;
+//                grid[panel.colNum - 2][6] = 2;
+//                grid[panel.colNum - 2][7] = 2;
+//                grid[panel.colNum - 2][8] = 2;
+//                grid[panel.colNum - 2][5] = 2;
+//                grid[panel.colNum - 2][4] = 2;
+//                initial = 1;
+//            }
 
             if(timer >= 5){
                 initiateElementRules();

@@ -8,10 +8,15 @@ public abstract class Element {
     public Color color;
     public int elementType = 0;
     public SimPanel panel;
-    public boolean isFlamable = false;
+    public boolean[] isFlamable;
 
     public Element( SimPanel panel){
         this.panel = panel;
+        makeFlammableArray();
+    }
+    private void makeFlammableArray(){
+        isFlamable = new boolean[10];
+        isFlamable[2] = true;
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);
