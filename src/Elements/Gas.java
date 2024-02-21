@@ -16,19 +16,13 @@ public abstract class Gas extends Element{
         }
 
         if(isCellEmpty(grid,indexX,indexY - 1) && isCellEmpty(nextGrid,indexX,indexY - 1)){
-            grid[indexY][indexX] = 0;
             nextGrid[indexY - 1][indexX] = 5;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY - 1) && isCellEmpty(nextGrid,indexX - dir,indexY - 1)) {
-            grid[indexY][indexX] = 0;
             nextGrid[indexY - 1][indexX - dir] = 5;
         }
         else if (isCellEmpty(grid,indexX + dir,indexY - 1) && isCellEmpty(nextGrid,indexX + dir,indexY - 1)) {
-            grid[indexY][indexX] = 0;
-            int disappearNum = (int) (Math.random()*100) + 1;
-            if(disappearNum != 100){
-                nextGrid[indexY][indexX + dir] = 5;
-            }
+            nextGrid[indexY - 1][indexX + dir] = 5;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
             grid[indexY][indexX] = 0;
@@ -40,7 +34,10 @@ public abstract class Gas extends Element{
         }
         else if(isCellEmpty(grid,indexX + dir,indexY) && isCellEmpty(nextGrid,indexX + dir,indexY)){
             grid[indexY][indexX] = 0;
-            nextGrid[indexY][indexX + dir] = 5;
+            int disappearNum = (int) (Math.random()*150) + 1;
+            if(disappearNum != 100){
+                nextGrid[indexY][indexX + dir] = 5;
+            }
         }
         else {
             int disappearNum = (int) (Math.random()*100) + 1;

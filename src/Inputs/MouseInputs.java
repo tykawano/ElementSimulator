@@ -54,9 +54,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         mouseConstantX = e.getX();
         mouseConstantY = e.getY();
-        System.out.println(e.getX());
-        System.out.println(e.getY());
-
     }
 
     public int getMouseXPlacer() {

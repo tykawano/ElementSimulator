@@ -25,9 +25,11 @@ public abstract class Liquid extends Element{
             nextGrid[indexY + 1][indexX + dir] = 3;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
+            grid[indexY][indexX] = 0;
             nextGrid[indexY][indexX - dir] = 3;
         }
         else if(isCellEmpty(grid,indexX + dir,indexY) && isCellEmpty(nextGrid,indexX + dir,indexY)){
+            grid[indexY][indexX] = 0;
             nextGrid[indexY][indexX + dir] = 3;
         }
         else {
