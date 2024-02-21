@@ -9,14 +9,27 @@ public abstract class Element {
     public int elementType = 0;
     public SimPanel panel;
     public boolean[] isFlamable;
+    public String[] elementStateMatter;
 
     public Element( SimPanel panel){
         this.panel = panel;
         makeFlammableArray();
+        makeStateMatterArray();
     }
     private void makeFlammableArray(){
         isFlamable = new boolean[10];
         isFlamable[2] = true;
+    }
+    private void makeStateMatterArray(){
+        elementStateMatter = new String[10];
+        elementStateMatter[0] = "air";
+        elementStateMatter[1] = "movableSolid";
+        elementStateMatter[2] = "immovableSolid";
+        elementStateMatter[3] = "liquid";
+        elementStateMatter[4] = "movableSolid";
+        elementStateMatter[5] = "gas";
+        elementStateMatter[6] = "plasma";
+        elementStateMatter[7] = "gas";
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);

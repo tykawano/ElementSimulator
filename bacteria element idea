@@ -1,0 +1,94 @@
+@Override
+    public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
+        int random;
+        int count = 0;
+        int oddsOfigniting = 15;
+
+        // top left check
+        if(flammableElementCheck(grid,indexX - 1,indexY - 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY - 1][indexX - 1] = 6;
+            }
+            count += 1;
+        }
+
+        // top middle check
+        if(flammableElementCheck(grid,indexX,indexY - 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY - 1][indexX] = 6;
+            }
+            count += 1;
+        }
+
+        // top right check
+        if(flammableElementCheck(grid,indexX + 1,indexY - 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY - 1][indexX + 1] = 6;
+            }
+            count += 1;
+        }
+
+        // right middle check
+        if(flammableElementCheck(grid,indexX + 1,indexY)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY][indexX + 1] = 6;
+            }
+            count += 1;
+        }
+
+        // left middle check
+        if(flammableElementCheck(grid,indexX - 1,indexY)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY][indexX - 1] = 6;
+            }
+            count += 1;
+        }
+
+        // bottom right check
+        if(flammableElementCheck(grid,indexX + 1,indexY + 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY + 1][indexX + 1] = 6;
+            }
+            count += 1;
+        }
+
+        // bottom middle check
+        if(flammableElementCheck(grid,indexX,indexY + 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY + 1][indexX] = 6;
+            }
+            count += 1;
+        }
+
+        // bottom left check
+        if(flammableElementCheck(grid,indexX - 1,indexY + 1)){
+            random = (int) (Math.random()*oddsOfigniting)+ 1;
+            if(random == 1){
+                nextGrid[indexY + 1][indexX - 1] = 6;
+            }
+            count += 1;
+        }
+
+        if(count <= 0){
+            random = (int) (Math.random()*4)+ 1;
+            if(random == 1){
+                nextGrid[indexY][indexX] = 5;
+            }
+            else {
+                nextGrid[indexY][indexX] = 6;
+            }
+        }
+        else if(count <= 2){
+            nextGrid[indexY][indexX] = 2;
+        }
+        else {
+            nextGrid[indexY][indexX] = 6;
+        }
+    }

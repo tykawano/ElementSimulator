@@ -4,8 +4,9 @@ import Main.SimPanel;
 
 import java.awt.*;
 
-public class Smoke extends Gas{
-    public Smoke(SimPanel panel, int elementType) {
+public class Steam extends Gas{
+
+    public Steam(SimPanel panel, int elementType) {
         super(panel);
         this.setDefaults(elementType);
     }
@@ -13,8 +14,10 @@ public class Smoke extends Gas{
     @Override
     public void setDefaults(int elementType) {
         this.elementType = elementType;
-        color = new Color(126,126,126,200);
-        this.chanceHorizontal = 150;
-        this.chanceNoMovement = 100;
+        color = new Color(71,71,71,120);
+        this.chanceHorizontal = 75;
+        this.chanceNoMovement = 25;
     }
+
+
 }
