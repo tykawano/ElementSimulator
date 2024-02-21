@@ -32,7 +32,7 @@ public abstract class Gas extends Element{
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
             grid[indexY][indexX] = 0;
-            int disappearNum = (int) (Math.random()*100) + 1;
+            int disappearNum = (int) (Math.random()*150) + 1;
             if(disappearNum != 100){
                 nextGrid[indexY][indexX - dir] = 5;
             }
@@ -43,8 +43,8 @@ public abstract class Gas extends Element{
             nextGrid[indexY][indexX + dir] = 5;
         }
         else {
-            int disappearNum = (int) (Math.random()*50) + 1;
-            if(disappearNum == 25){
+            int disappearNum = (int) (Math.random()*100) + 1;
+            if(disappearNum == 90){
                 nextGrid[indexY][indexX] = 0;
             }
             else {

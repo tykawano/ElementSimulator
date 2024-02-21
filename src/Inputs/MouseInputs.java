@@ -1,14 +1,14 @@
 package Inputs;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
     public boolean isDragging = false;
-    public int mouseX = 0, mouseY = 0;
+    public int mouseXPlacer = 0, mouseYPlacer = 0;
     public int mouseXUI = 0, mouseYUI = 0;
+    public int mouseConstantX = 0, mouseConstantY = 0;
     public boolean buttonPressed = false;
 
     @Override
@@ -27,8 +27,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         buttonPressed = false;
         isDragging = false;
-        mouseX = 0;
-        mouseY = 0;
+        mouseXPlacer = 0;
+        mouseYPlacer = 0;
     }
 
     @Override
@@ -43,22 +43,28 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
+        mouseXPlacer = e.getX();
+        mouseYPlacer = e.getY();
+        mouseConstantX = e.getX();
+        mouseConstantY = e.getY();
         isDragging = true;
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        mouseConstantX = e.getX();
+        mouseConstantY = e.getY();
+        System.out.println(e.getX());
+        System.out.println(e.getY());
 
     }
 
-    public int getMouseX() {
-        return mouseX;
+    public int getMouseXPlacer() {
+        return mouseXPlacer;
     }
 
-    public int getMouseY() {
-        return mouseY;
+    public int getMouseYPlacer() {
+        return mouseYPlacer;
     }
 
     public boolean isDragging() {
@@ -69,7 +75,11 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         return buttonPressed;
     }
 
-    public void setButtonPressed(boolean buttonPressed) {
-        this.buttonPressed = buttonPressed;
+    public int getMouseConstantX() {
+        return mouseConstantX;
+    }
+
+    public int getMouseConstantY() {
+        return mouseConstantY;
     }
 }

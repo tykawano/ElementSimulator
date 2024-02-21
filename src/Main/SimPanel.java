@@ -24,6 +24,9 @@ public class SimPanel extends JPanel implements Runnable{
     public static final int PLAMSMASTATEUI = 3;
     int count = 0;
     public int buttonState = SOLIDSTATEUI;
+    public boolean cursorOutlineState = true;
+    public boolean cursorEraserPhase = false;
+    public int lastElementSlected = 1;
 
     MouseInputs mouse = new MouseInputs();
     public Grid grid;
@@ -42,15 +45,32 @@ public class SimPanel extends JPanel implements Runnable{
         // update grid elements and there rules
         grid.update();
 
-
-        int clearButtonMinX = widthPixel - (sizePixel*14);
-        int clearButtonMaxX = clearButtonMinX + sizePixel * 5;
-
-        int buttonMinX = widthPixel - (sizePixel*6);
-        int buttonMaxX = buttonMinX + sizePixel * 5;
-        int buttonMinY = sizePixel;
-        int buttonMaxY = buttonMinY + sizePixel + (sizePixel*2);
         if(count >= 7){
+            int clearButtonMinX = widthPixel - (sizePixel*14);
+            int clearButtonMaxX = clearButtonMinX + sizePixel * 5;
+            int eraserButtonMinX = widthPixel - (sizePixel*22);
+            int eraserButtonMaxX = eraserButtonMinX + sizePixel*5;
+
+            int buttonMinX = widthPixel - (sizePixel*6);
+            int buttonMaxX = buttonMinX + sizePixel * 5;
+            int buttonMinY = sizePixel;
+            int buttonMaxY = buttonMinY + sizePixel + (sizePixel*2);
+
+            // Eraser button is pressed
+            if(UiPopUpState == 0 && mouse.isButtonPressed() && !cursorEraserPhase &&
+                    (mouse.mouseXUI >= eraserButtonMinX && mouse.mouseXUI <= eraserButtonMaxX)
+                    && (mouse.mouseYUI >= buttonMinY && mouse.mouseYUI <= buttonMaxY)){
+                lastElementSlected = grid.currElementType;
+                grid.setCurrElementType(0);
+                cursorEraserPhase = true;
+            }
+            else if(UiPopUpState == 0 && mouse.isButtonPressed() && cursorEraserPhase &&
+                    (mouse.mouseXUI >= eraserButtonMinX && mouse.mouseXUI <= eraserButtonMaxX)
+                    && (mouse.mouseYUI >= buttonMinY && mouse.mouseYUI <= buttonMaxY)){
+                grid.setCurrElementType(lastElementSlected);
+                cursorEraserPhase = false;
+            }
+
             // clear button pressed check
             if(UiPopUpState == 0 && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= clearButtonMinX && mouse.mouseXUI <= clearButtonMaxX)
@@ -181,14 +201,18 @@ public class SimPanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g2);
 
-        for (int i = 0; i < heightPixel; i+=sizePixel) {
-            for (int j = 0; j < widthPixel; j+=sizePixel) {
-                g2.drawRect(j,i,sizePixel,sizePixel);
-            }
-        }
+//        for (int i = 0; i < heightPixel; i+=sizePixel) {
+//            for (int j = 0; j < widthPixel; j+=sizePixel) {
+//                g2.drawRect(j,i,sizePixel,sizePixel);
+//            }
+//        }
 
         paintButtonUI(g2);
         grid.paint(g2);
+
+        if(UiPopUpState == 0){
+            paintMouseOutline(g2);
+        }
 
         if(UiPopUpState == 1){
             paintOptionsScreen(g2);
@@ -208,6 +232,27 @@ public class SimPanel extends JPanel implements Runnable{
         }
 
         g2.dispose();
+    }
+    public void paintMouseOutline(Graphics2D g2){
+        // place for left corner sizePixel
+        int rowSize = (mouse.getMouseConstantX() / sizePixel) - 1; // 2
+        int colSize = mouse.getMouseConstantY()  / sizePixel - 1; // 2
+
+        int x = rowSize*sizePixel;
+        int y = colSize*sizePixel;
+
+        Color colorOutline;
+        if(!cursorEraserPhase){
+            colorOutline = new Color(100, 107, 99);
+        }
+        else {
+            colorOutline = new Color(245, 64, 33);
+        }
+        g2.setColor(colorOutline);
+
+
+        g2.setStroke(new BasicStroke(1));
+        g2.drawRect(x,y,3*sizePixel,3*sizePixel);
     }
 
     public void paintSolidsButtons(Graphics2D g2){
@@ -247,12 +292,13 @@ public class SimPanel extends JPanel implements Runnable{
         g2.setFont(g2.getFont().deriveFont(Font.BOLD));
 
         if(UiPopUpState == 0){
-            g2.drawString("Options",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
+            g2.drawString("Options",widthPixel - (sizePixel*5) - 3,sizePixel*2 + 3);
         }
         else{
-            g2.drawString("Close",widthPixel - (sizePixel*5) + 3,sizePixel*2 + 3);
+            g2.drawString("Close",widthPixel - (sizePixel*5) - 3,sizePixel*2 + 3);
         }
 
+        // Reset Button
         g2.setColor(new Color(235,106,14,180));
         g2.fillRoundRect(widthPixel - (sizePixel*14),sizePixel,sizePixel*5,sizePixel*2,35,35);
         g2.setColor(Color.WHITE);
@@ -260,6 +306,21 @@ public class SimPanel extends JPanel implements Runnable{
         g2.drawRoundRect(widthPixel - (sizePixel*14),sizePixel,sizePixel*5,sizePixel*2,25,25);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD));
         g2.drawString("Clear",widthPixel - (sizePixel*13) + 3,sizePixel*2 + 3);
+
+        // Eraser Button
+        g2.setColor(new Color( 67,71,80,180));
+        g2.fillRoundRect(widthPixel - (sizePixel*22),sizePixel,sizePixel*5,sizePixel*2,35,35);
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRoundRect(widthPixel - (sizePixel*22),sizePixel,sizePixel*5,sizePixel*2,25,25);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD));
+        if(!cursorEraserPhase){
+            g2.drawString("Eraser",widthPixel - (sizePixel*21) - 3,sizePixel*2 + 3);
+        }
+        else {
+            g2.drawString("Brush",widthPixel - (sizePixel*21) - 3,sizePixel*2 + 3);
+        }
+
     }
 
     public void paintOptionsScreen(Graphics2D g2){

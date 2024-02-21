@@ -44,8 +44,19 @@ public class Grid {
     public void update(){
 
         if(panel.getUiPopUpState() == 0){
-            if(mouse.isDragging()){
-                setGrid(setRowIndex(mouse.getMouseX()),setColIndex(mouse.getMouseY()),currElementType);
+            boolean middleInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()),setColIndex(mouse.getMouseYPlacer()));
+            boolean topLeftInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) - 1,setColIndex(mouse.getMouseYPlacer()) - 1);
+            boolean topMiddleInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()),setColIndex(mouse.getMouseYPlacer()) - 1);
+            boolean topRightInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) + 1,setColIndex(mouse.getMouseYPlacer()) - 1);
+            boolean rightMiddleInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) + 1,setColIndex(mouse.getMouseYPlacer()));
+            boolean bottomRightInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) + 1,setColIndex(mouse.getMouseYPlacer()) + 1);
+            boolean bottomMiddleInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()),setColIndex(mouse.getMouseYPlacer()) + 1);
+            boolean bottomLeftInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) - 1,setColIndex(mouse.getMouseYPlacer()) + 1);
+            boolean leftMiddleInput = isInBounds(setRowIndex(mouse.getMouseXPlacer()) - 1,setColIndex(mouse.getMouseYPlacer()));
+
+            if(mouse.isDragging() && middleInput && topLeftInput && topMiddleInput && topRightInput && rightMiddleInput
+                    && bottomRightInput && bottomMiddleInput && bottomLeftInput && leftMiddleInput){
+                setGrid(setRowIndex(mouse.getMouseXPlacer()),setColIndex(mouse.getMouseYPlacer()),currElementType);
             }
 //            if(initial == 0){
 //                grid[30][panel.rowNum/2] = 2;
@@ -150,5 +161,8 @@ public class Grid {
     }
     public void clearItems(int col, int row){
         grid = new int[col][row];
+    }
+    public boolean isInBounds(int row, int col){
+        return (row < panel.rowNum && row >= 0 && col < panel.colNum && col >= 0);
     }
 }
