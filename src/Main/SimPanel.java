@@ -24,7 +24,6 @@ public class SimPanel extends JPanel implements Runnable{
     public static final int PLAMSMASTATEUI = 3;
     int count = 0;
     public int buttonState = SOLIDSTATEUI;
-    public boolean cursorOutlineState = true;
     public boolean cursorEraserPhase = false;
     public int lastElementSlected = 1;
 
@@ -140,29 +139,39 @@ public class SimPanel extends JPanel implements Runnable{
             int button3MinX = sizePixel*15;
             int button3MaxX = button3MinX + sizePixel*6;
 
-            if(buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+            int button4MinX = sizePixel*20;
+            int button4MaxX = button4MinX + sizePixel*6;
+
+            if(UiPopUpState == 1 && buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
                 grid.setCurrElementType(1);
                 UiPopUpState = 0;
                 cursorEraserPhase = false;
             }
-            else if (buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+            else if (UiPopUpState == 1 && buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button2MinX && mouse.mouseXUI <= button2MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
                 grid.setCurrElementType(2);
                 UiPopUpState = 0;
                 cursorEraserPhase = false;
             }
-            else if (buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+            else if (UiPopUpState == 1 && buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button3MinX && mouse.mouseXUI <= button3MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
                 grid.setCurrElementType(4);
                 UiPopUpState = 0;
                 cursorEraserPhase = false;
             }
+            else if (UiPopUpState == 1 && buttonState == SOLIDSTATEUI && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= button4MinX && mouse.mouseXUI <= button4MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
+                grid.setCurrElementType(8);
+                UiPopUpState = 0;
+                cursorEraserPhase = false;
+            }
 
-            if(buttonState == LIQUIDSTATEUI && mouse.isButtonPressed() &&
+            if(UiPopUpState == 1 && buttonState == LIQUIDSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
                 grid.setCurrElementType(3);
@@ -170,14 +179,14 @@ public class SimPanel extends JPanel implements Runnable{
                 cursorEraserPhase = false;
             }
 
-            if(buttonState == GASSTATEUI && mouse.isButtonPressed() &&
+            if(UiPopUpState == 1 && buttonState == GASSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
                 grid.setCurrElementType(5);
                 UiPopUpState = 0;
                 cursorEraserPhase = false;
             }
-            else if (buttonState == GASSTATEUI && mouse.isButtonPressed() &&
+            else if (UiPopUpState == 1 && buttonState == GASSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button2MinX && mouse.mouseXUI <= button2MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)) {
                 grid.setCurrElementType(7);
@@ -185,7 +194,7 @@ public class SimPanel extends JPanel implements Runnable{
                 cursorEraserPhase = false;
             }
 
-            if(buttonState == PLAMSMASTATEUI && mouse.isButtonPressed() &&
+            if(UiPopUpState == 1 && buttonState == PLAMSMASTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
                     && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
                 grid.setCurrElementType(6);
@@ -267,6 +276,9 @@ public class SimPanel extends JPanel implements Runnable{
 
         createButton(g2,ycord,15*sizePixel,new Color(255,250,250));
         g2.drawString("SNOW",16*sizePixel,ycord + sizePixel + (sizePixel/4));
+
+        createButton(g2,ycord,20*sizePixel,new Color(58,49,40));
+        g2.drawString("GRAVEL",21*sizePixel,ycord + sizePixel + (sizePixel/4));
     }
 
     public void paintLiquidsButtons(Graphics2D g2){

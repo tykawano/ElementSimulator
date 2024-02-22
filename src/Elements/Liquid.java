@@ -33,7 +33,7 @@ public abstract class Liquid extends Element{
             nextGrid[indexY][indexX + dir] = elementType;
         }
         else {
-            if(isSand(grid,indexX,indexY - 1)){
+            if(isSand(grid,indexX,indexY - 1) || isGravelCheck(grid,indexX,indexY - 1)){
                 switchElements(grid,indexX,indexY,indexX,indexY - 1,nextGrid);
             }
             else {
@@ -43,10 +43,5 @@ public abstract class Liquid extends Element{
         }
     }
 
-    public boolean isSand(int[][] grid ,int nextRow, int nextCol){
-        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
-            return (grid[nextCol][nextRow] == 1);
-        }
-        return false;
-    }
+
 }

@@ -56,11 +56,4 @@ public abstract class Gas extends Element{
         }
     }
 
-    public boolean isCellSolid(int[][] grid ,int nextRow, int nextCol){
-        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
-            int currElementCheck = grid[nextCol][nextRow];
-            return elementStateMatter[currElementCheck].equals("movableSolid") || elementStateMatter[currElementCheck].equals("liquid");
-        }
-        return false;
-    }
 }

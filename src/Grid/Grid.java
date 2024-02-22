@@ -29,6 +29,7 @@ public class Grid {
         elementTypes[5] = new Smoke(panel,5);
         elementTypes[6] = new Fire(panel,6);
         elementTypes[7] = new Steam(panel,7);
+        elementTypes[8] = new Gravel(panel,8);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
@@ -103,6 +104,9 @@ public class Grid {
                 else if(grid[i][j] == elementTypes[7].getElementType()){
                     elementTypes[7].action(grid,nextGrid,j,i);
                 }
+                else if(grid[i][j] == elementTypes[8].getElementType()){
+                    elementTypes[8].action(grid,nextGrid,j,i);
+                }
             }
         }
         this.grid = nextGrid;
@@ -143,6 +147,11 @@ public class Grid {
                 }
                 else if(grid[i][j] == elementTypes[7].getElementType()){
                     currElement = elementTypes[7];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if(grid[i][j] == elementTypes[8].getElementType()){
+                    currElement = elementTypes[8];
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }

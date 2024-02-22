@@ -111,20 +111,6 @@ public class Fire extends Plasma{
 
     }
 
-    public boolean flammableElementCheck(int[][] grid ,int nextRow, int nextCol){
-        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
-            int elementType = grid[nextCol][nextRow];
-            return isFlamable[elementType];
-        }
-        return false;
-    }
-
-    public boolean isWaterCheck(int[][] grid ,int nextRow, int nextCol){
-        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
-            return grid[nextCol][nextRow] == 3;
-        }
-        return false;
-    }
 
     @Override
     public void setDefaults(int elementType) {

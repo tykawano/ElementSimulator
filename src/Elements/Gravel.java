@@ -4,9 +4,8 @@ import Main.SimPanel;
 
 import java.awt.*;
 
-public class Wood extends SolidImmovable {
-
-    public Wood(SimPanel panel, int elementType) {
+public class Gravel extends SolidMovable{
+    public Gravel(SimPanel panel, int elementType) {
         super(panel);
         this.setDefaults(elementType);
     }
@@ -14,15 +13,18 @@ public class Wood extends SolidImmovable {
     @Override
     public void setDefaults(int elementType) {
         this.elementType = elementType;
-        this.color = new Color(150, 111, 51);
+        color = new Color(58,49,40);
     }
 
     @Override
     public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
-        if(isWoodCheck(grid,indexX,indexY) && (isWoodCheck(nextGrid,indexX,indexY) || isCellEmpty(nextGrid,indexX,indexY))){
+
+        if(isCellEmpty(grid,indexX,indexY + 1) && isCellEmpty(nextGrid,indexX,indexY + 1)){
+            nextGrid[indexY + 1][indexX] = elementType;
+        }
+        else {
             nextGrid[indexY][indexX] = elementType;
+
         }
     }
-
-
 }
