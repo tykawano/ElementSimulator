@@ -107,6 +107,16 @@ public class Snow extends SolidMovable{
                 nextGrid[indexY][indexX] = elementType;
             }
         }
+        else if (( indexY == panel.colNum - 1) && (edgeLeft || edgeRight)) {
+            random = (int) (Math.random()*chanceWaterSoluble) + 1;
+            if(random == 1){
+                nextGrid[indexY][indexX] = 3;
+                turnedIntoWater = true;
+            }
+            else {
+                nextGrid[indexY][indexX] = elementType;
+            }
+        }
 
         // check if tiles around snow tile are fire
         if(isFireCheck(grid,indexX - 1,indexY) || isFireCheck(grid,indexX - 1,indexY - 1) ||

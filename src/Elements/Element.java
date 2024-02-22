@@ -17,7 +17,7 @@ public abstract class Element {
         makeStateMatterArray();
     }
     private void makeFlammableArray(){
-        isFlamable = new boolean[10];
+        isFlamable = new boolean[15];
         isFlamable[2] = true;
     }
     private void makeStateMatterArray(){
@@ -31,6 +31,7 @@ public abstract class Element {
         elementStateMatter[6] = "plasma";
         elementStateMatter[7] = "gas";
         elementStateMatter[8] = "movableSolid";
+        elementStateMatter[9] = "liquid";
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);

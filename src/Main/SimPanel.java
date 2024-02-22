@@ -178,6 +178,13 @@ public class SimPanel extends JPanel implements Runnable{
                 UiPopUpState = 0;
                 cursorEraserPhase = false;
             }
+            else if(UiPopUpState == 1 && buttonState == LIQUIDSTATEUI && mouse.isButtonPressed() &&
+                    (mouse.mouseXUI >= button2MinX && mouse.mouseXUI <= button2MaxX)
+                    && (mouse.mouseYUI >= button1MinY && mouse.mouseYUI <= button1MaxY)){
+                grid.setCurrElementType(9);
+                UiPopUpState = 0;
+                cursorEraserPhase = false;
+            }
 
             if(UiPopUpState == 1 && buttonState == GASSTATEUI && mouse.isButtonPressed() &&
                     (mouse.mouseXUI >= button1MinX && mouse.mouseXUI <= button1MaxX)
@@ -285,8 +292,8 @@ public class SimPanel extends JPanel implements Runnable{
         createButton(g2,ycord,5*sizePixel,new Color(28,163,236));
         g2.drawString("WATER",6*sizePixel,ycord + sizePixel + (sizePixel/4));
 
-//        createButton(g2,ycord,10*sizePixel,new Color(150, 111, 51));
-//        g2.drawString("WOOD",11*sizePixel,ycord + sizePixel + (sizePixel/4));
+        createButton(g2,ycord,10*sizePixel,new Color(255,37,0));
+        g2.drawString("LAVA",11*sizePixel,ycord + sizePixel + (sizePixel/4));
     }
     public void paintGasesButtons(Graphics2D g2){
         createButton(g2,ycord,5*sizePixel,new Color(126,126,126,200));
