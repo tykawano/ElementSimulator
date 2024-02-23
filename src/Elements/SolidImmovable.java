@@ -14,4 +14,6 @@ public abstract class SolidImmovable extends Element{
             nextGrid[indexY][indexX] = elementType;
         }
     }
+
+
 }

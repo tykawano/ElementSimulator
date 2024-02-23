@@ -21,7 +21,7 @@ public abstract class Element {
         isFlamable[2] = true;
     }
     private void makeStateMatterArray(){
-        elementStateMatter = new String[10];
+        elementStateMatter = new String[15];
         elementStateMatter[0] = "air";
         elementStateMatter[1] = "movableSolid";
         elementStateMatter[2] = "immovableSolid";
@@ -32,6 +32,7 @@ public abstract class Element {
         elementStateMatter[7] = "gas";
         elementStateMatter[8] = "movableSolid";
         elementStateMatter[9] = "liquid";
+        elementStateMatter[10] = "immovableSolid";
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);
@@ -67,9 +68,18 @@ public abstract class Element {
         return false;
     }
 
+    // checker if an element in array is gravel
     public boolean isGravelCheck(int[][] grid, int nextRow, int nextCol){
         if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
             return (grid[nextCol][nextRow] == 8);
+        }
+        return false;
+    }
+
+    // checker if an element in array is lava
+    public boolean isLavaCheck(int[][] grid, int nextRow, int nextCol){
+        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
+            return (grid[nextCol][nextRow] == 9);
         }
         return false;
     }
