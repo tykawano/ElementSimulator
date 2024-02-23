@@ -20,7 +20,7 @@ public class Sand extends SolidMovable{
         boolean turnedIntoGlass = false;
         int threshold = 7;
         int random;
-        int oddsOfigniting = 3;
+        int oddsOfGlassmaking = 3;
 
 
         if(isLavaCheck(grid,indexX - 1,indexY)){
@@ -28,7 +28,7 @@ public class Sand extends SolidMovable{
             nextGrid[indexY][indexX - 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX + i,indexY + i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
                         grid[indexY + i][indexX + i] = 10;
                         nextGrid[indexY + i][indexX + i] = 10;
@@ -42,7 +42,7 @@ public class Sand extends SolidMovable{
             nextGrid[indexY - 1][indexX - 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX + i,indexY + i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
                         grid[indexY + i][indexX + i] = 10;
                         nextGrid[indexY + i][indexX + i] = 10;
@@ -56,7 +56,7 @@ public class Sand extends SolidMovable{
             nextGrid[indexY - 1][indexX] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX,indexY + i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
                         grid[indexY + i][indexX] = 10;
                         nextGrid[indexY + i][indexX] = 10;
@@ -70,7 +70,7 @@ public class Sand extends SolidMovable{
             nextGrid[indexY - 1][indexX + 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX - i,indexY + i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
                         grid[indexY + i][indexX - i] = 10;
                         nextGrid[indexY + i][indexX - i] = 10;
@@ -84,7 +84,7 @@ public class Sand extends SolidMovable{
             nextGrid[indexY][indexX + 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX - i,indexY + i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
                         grid[indexY + i][indexX - i] = 10;
                         nextGrid[indexY + i][indexX - i] = 10;
@@ -98,8 +98,9 @@ public class Sand extends SolidMovable{
             nextGrid[indexY + 1][indexX + 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX - i,indexY - i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
+                        grid[indexY - i][indexX - i] = 10;
                         nextGrid[indexY - i][indexX - i] = 10;
                     }
                 }
@@ -111,8 +112,9 @@ public class Sand extends SolidMovable{
             nextGrid[indexY + 1][indexX] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX,indexY - i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
+                        grid[indexY - i][indexX] = 10;
                         nextGrid[indexY - i][indexX] = 10;
                     }
                 }
@@ -124,8 +126,9 @@ public class Sand extends SolidMovable{
             nextGrid[indexY + 1][indexX - 1] = 5;
             for (int i = threshold; i > 1; i--) {
                 if (isSand(grid,indexX + i,indexY - i)){
-                    random = (int) (Math.random()*oddsOfigniting)+ 1;
+                    random = (int) (Math.random()*oddsOfGlassmaking)+ 1;
                     if(random == 1){
+                        grid[indexY - i][indexX + i] = 10;
                         nextGrid[indexY - i][indexX + i] = 10;
                     }
                 }

@@ -32,6 +32,7 @@ public class Grid {
         elementTypes[8] = new Gravel(panel,8);
         elementTypes[9] = new Lava(panel,9);
         elementTypes[10] = new Glass(panel,10);
+        elementTypes[11] = new Obsidian(panel,11);
     }
 
     public void setGrid(int rowNum, int colNum, int elementType) {
@@ -115,6 +116,9 @@ public class Grid {
                 else if(grid[i][j] == elementTypes[10].getElementType()){
                     elementTypes[10].action(grid,nextGrid,j,i);
                 }
+                else if(grid[i][j] == elementTypes[11].getElementType()){
+                    elementTypes[11].action(grid,nextGrid,j,i);
+                }
             }
         }
         this.grid = nextGrid;
@@ -170,6 +174,11 @@ public class Grid {
                 }
                 else if(grid[i][j] == elementTypes[10].getElementType()){
                     currElement = elementTypes[10];
+                    g2.setColor(currElement.getColor());
+                    g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
+                }
+                else if(grid[i][j] == elementTypes[11].getElementType()){
+                    currElement = elementTypes[11];
                     g2.setColor(currElement.getColor());
                     g2.fillRect(j*panel.sizePixel,i*panel.sizePixel,panel.sizePixel,panel.sizePixel);
                 }

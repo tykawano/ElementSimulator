@@ -33,6 +33,7 @@ public abstract class Element {
         elementStateMatter[8] = "movableSolid";
         elementStateMatter[9] = "liquid";
         elementStateMatter[10] = "immovableSolid";
+        elementStateMatter[11] = "immovableSolid";
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);
