@@ -18,9 +18,20 @@ public class Sand extends SolidMovable{
     @Override
     public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY) {
         boolean turnedIntoGlass = false;
+
+        turnedIntoGlass = lavaReaction(grid,nextGrid,indexX,indexY,turnedIntoGlass);
+
+
+        if(!turnedIntoGlass){
+            super.action(grid, nextGrid, indexX, indexY);
+        }
+
+    }
+
+    private boolean lavaReaction(int[][] grid, int[][] nextGrid, int indexX, int indexY,boolean turnedIntoGlass){
         int threshold = 7;
-        int random;
         int oddsOfGlassmaking = 3;
+        int random;
 
 
         if(isLavaCheck(grid,indexX - 1,indexY)){
@@ -36,6 +47,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if(isLavaCheck(grid,indexX - 1,indexY - 1)){
             nextGrid[indexY][indexX] = 10;
@@ -50,6 +62,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if(isLavaCheck(grid,indexX,indexY - 1)) {
             nextGrid[indexY][indexX] = 10;
@@ -64,6 +77,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if(isLavaCheck(grid,indexX + 1,indexY - 1) ){
             nextGrid[indexY][indexX] = 10;
@@ -78,6 +92,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if((isLavaCheck(grid,indexX + 1,indexY) && isCellEmpty(nextGrid,indexX + 1,indexY))){
             nextGrid[indexY][indexX] = 10;
@@ -92,6 +107,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if(isLavaCheck(grid,indexX + 1,indexY + 1) && isCellEmpty(nextGrid,indexX + 1,indexY + 1)){
             nextGrid[indexY][indexX] = 10;
@@ -106,6 +122,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if((isLavaCheck(grid,indexX,indexY + 1) && isCellEmpty(nextGrid,indexX,indexY + 1)) ){
             nextGrid[indexY][indexX] = 10;
@@ -120,6 +137,7 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
         else if((isLavaCheck(grid,indexX - 1,indexY + 1) && isCellEmpty(nextGrid,indexX - 1,indexY + 1))){
             nextGrid[indexY][indexX] = 10;
@@ -134,11 +152,10 @@ public class Sand extends SolidMovable{
                 }
             }
             turnedIntoGlass = true;
+            return turnedIntoGlass;
         }
-
-        if(!turnedIntoGlass){
-            super.action(grid, nextGrid, indexX, indexY);
+        else {
+            return false;
         }
-
     }
 }

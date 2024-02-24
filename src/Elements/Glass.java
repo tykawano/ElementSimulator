@@ -4,7 +4,7 @@ import Main.SimPanel;
 
 import java.awt.*;
 
-public class Glass extends SolidImmovable{
+public class Glass extends SolidMovable{
     public Glass(SimPanel panel, int elementType) {
         super(panel);
         this.setDefaults(elementType);

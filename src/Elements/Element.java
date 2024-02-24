@@ -32,8 +32,8 @@ public abstract class Element {
         elementStateMatter[7] = "gas";
         elementStateMatter[8] = "movableSolid";
         elementStateMatter[9] = "liquid";
-        elementStateMatter[10] = "immovableSolid";
-        elementStateMatter[11] = "immovableSolid";
+        elementStateMatter[10] = "movableSolid";
+        elementStateMatter[11] = "movableSolid";
     }
     abstract public void action(int[][] grid, int[][] nextGrid, int indexX, int indexY);
     abstract public void setDefaults(int elementType);
@@ -42,6 +42,14 @@ public abstract class Element {
     public boolean isCellEmpty(int[][] grid,int nextRow, int nextCol){
         if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
             return (grid[nextCol][nextRow] == 0);
+        }
+        return false;
+    }
+
+    // checker to see if cell is value 11, where there is obsidian
+    public boolean isObsidianChecker(int[][] grid,int nextRow, int nextCol){
+        if((nextRow < panel.rowNum && nextRow >= 0) && (nextCol < panel.colNum && nextCol >= 0)){
+            return (grid[nextCol][nextRow] == 11);
         }
         return false;
     }

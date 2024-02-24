@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class SimPanel extends JPanel implements Runnable{
     public final int sizePixel = 10;
-    public final int rowNum = 120;
-    public final int colNum = 60;
+    public final int rowNum = 150;
+    public final int colNum = 75;
     public final int widthPixel = sizePixel*rowNum;
     public final int heightPixel = sizePixel*colNum;
     public final int UISIZEWIDTH = widthPixel - (2*(4*sizePixel));

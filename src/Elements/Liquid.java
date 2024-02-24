@@ -22,6 +22,7 @@ public abstract class Liquid extends Element{
             nextGrid[indexY + 1][indexX - dir] = elementType;
         }
         else if (isCellEmpty(grid,indexX + dir,indexY + 1) && isCellEmpty(nextGrid,indexX + dir,indexY + 1)) {
+            grid[indexY][indexX] = 0;
             nextGrid[indexY + 1][indexX + dir] = elementType;
         }
         else if (isCellEmpty(grid,indexX - dir,indexY) && isCellEmpty(nextGrid,indexX - dir,indexY)) {
@@ -33,7 +34,8 @@ public abstract class Liquid extends Element{
             nextGrid[indexY][indexX + dir] = elementType;
         }
         else {
-            if(isSand(grid,indexX,indexY - 1) || isGravelCheck(grid,indexX,indexY - 1)){
+            if(isSand(grid,indexX,indexY - 1) || isGravelCheck(grid,indexX,indexY - 1) ||
+            isObsidianChecker(grid,indexX,indexY - 1)){
                 switchElements(grid,indexX,indexY,indexX,indexY - 1,nextGrid);
             }
             else {
